@@ -39,7 +39,9 @@ const userSchema = new Schema({
         type: Array,
         default: []
     }
-})
+},
+{ timestamps: true }
+);
 
 userSchema.virtual("password")
     .set(function(password){
@@ -54,9 +56,7 @@ userSchema.virtual("password")
 userSchema.method = {
 
     authenticate: function(plainPassword){
-        return {
-            this.securePassword(plainPassword) === this.encrypt_password
-        }
+        return this.securePassword(plainPassword) === this.encrypt_password
     },
 
     securePassword: function(plainPassword){
